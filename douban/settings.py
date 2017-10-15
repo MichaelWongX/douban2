@@ -21,8 +21,8 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; LCTE; rv:11.0) l
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 20
-CONCURRENT_ITEMS = 1000
+CONCURRENT_REQUESTS = 10
+CONCURRENT_ITEMS = 100
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -93,11 +93,11 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 # CLOSESPIDER_PAGECOUNT = 40
 
-LOG_FILE = '34.log'
-LOG_LEVEL = 'INFO'
-FEED_URI = 'movie1015.jl'
+LOG_FILE = 'xx2.log'
+LOG_LEVEL = 'DEBUG'
+FEED_URI = 'movie1016x.jl'
 FEED_FORMAT = 'jsonlines'
 FEED_EXPORT_ENCODING = 'utf8'
-# CLOSESPIDER_PAGECOUNT = 5
+CLOSESPIDER_PAGECOUNT = 100
 
-JOBDIR = 'data101501'
+#JOBDIR = 'data101501'
