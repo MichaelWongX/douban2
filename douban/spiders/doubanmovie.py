@@ -56,7 +56,8 @@ class DoubanmovieSpider(scrapy.Spider):
             yield self.gen_request(url)
 
     def parse(self, response):
-        if re.search('https://movie\.douban\.com/subject/\d+', response.url):
+        if re.match('https?://movie\.douban\.com/subject/\d+/$', response.url) or \
+                re.match('https?://movie\.douban\.com/subject/\d+/\?', response.url):
             # save the subject pages
             if self.savepage_status:
                 self.save_page(response)
@@ -65,7 +66,8 @@ class DoubanmovieSpider(scrapy.Spider):
 
         for url in response.xpath('//a/@href').extract():
             url = response.urljoin(url)
-            if re.search('douban.com/subject/\d+', url)  or 'tag' in url:
+            if re.match('https?://movie\.douban\.com/subject/\d+/$', response.url) or \
+                re.match('https?://movie\.douban\.com/subject/\d+/\?', response.url) or 'tag' in url:
                 yield self.gen_request(url)
 
     def parse_err(self, failure):
@@ -79,7 +81,7 @@ class DoubanmovieSpider(scrapy.Spider):
             url = response.request.url
             # these exceptions come from HttpError spider middleware
             # you can get the non-200 response
-            if 'sec.douban.com' or 'misc/sorry' in response.url:
+            if 'sec.douban.com' in response.url or 'misc/sorry' in response.url:
                 tmp_url = unquote(response.url.split('=', maxsplit=1)[-1])
                 self.logger.error('HttpError sec.douban or captcha on %s', tmp_url)
                 yield self.gen_request(tmp_url, dont_filter=True)
